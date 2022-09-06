@@ -1,4 +1,4 @@
-#menuBar {
+#navbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -7,6 +7,10 @@
   padding-bottom: 4px;
 }
 
+#name {
+  font-weight: bold;
+  font-size: x-large;
+}
 #search {
   border-radius: 14px;
   text-align: center;
@@ -16,6 +20,7 @@
 #menu {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   justify-content: space-evenly;
 }
 
@@ -25,10 +30,15 @@
   border-radius: 8px;
   border-color: gray;
   flex-grow: 1;
+  width: 150px;
+  margin: 12px;
 }
 
-.menu-item > img {
-  width: 75%;
+.foodImg {
+  width: 100%;
   padding-top: 8px;
-  
+}
+
+.cart-button {
+    background-image: "https://pngimg.com/uploads/shopping_cart/shopping_cart_PNG37.png";
 }
