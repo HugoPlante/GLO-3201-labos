@@ -1,0 +1,36 @@
+body {
+  font-family: "Open Sans";
+  padding-left: 8px;
+  padding-top: 8px;
+}
+
+#dropdown {
+  width: 400px;
+  padding: 8px 0px 4px;
+}
+
+#dropdown-input {
+  width: 150px;
+}
+
+#dropdown-options {
+  border: 1px solid gray;
+  width: 147px;
+}
+
+.option {
+  padding: 8px 0px 8px 8px;
+  cursor: pointer;
+}
+
+#no-option {
+  display: none;
+}
+
+.option:hover {
+  background-color: #e6e6e6;
+}
+
+.hide {
+  display: none;
+}
