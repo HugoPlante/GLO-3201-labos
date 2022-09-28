@@ -16,9 +16,20 @@
   </head>
   <body>
     <div id="parent">
-      <div id="todo-input">
-        <input type="text" id="new-todo-text" />
-        <button id="add-button">Add</button>
+      <div id="topbar">
+        <div id="todo-input">
+          <input type="text" id="new-todo-text" placeholder="Type new task..."/>
+          <button id="add-button">Add</button>
+        </div>
+        <ul id="tips">
+          <li>
+            Une tâche peut être modifiée après avoir être cliquée deux fois.
+          </li>
+          <li>
+            La modification sera sauvegarder après avoir cliqué à l'extérieur de
+            la boite de modification
+          </li>
+        </ul>
       </div>
       <ul id="todo-list"></ul>
     </div>

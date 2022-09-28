@@ -14,8 +14,13 @@ body {
   padding: 1rem
 }
 
+#topbar {
+  display: flex;
+  justify-content: space-between;
+}
+
 #todo-input {
-  padding-bottom: 1rem;
+  
 }
 
 #todo-list {
@@ -26,4 +31,10 @@ body {
   padding-bottom: 1rem;
   display: flex;
   justify-content: space-between;
+}
+
+#tips {
+  width: 30vw;
+  list-style: disc;
+  
 }
