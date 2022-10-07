@@ -1,21 +1,9 @@
-const URL = 'https://glo3102lab4.herokuapp.com';
-const USER_ID = '86cfd5f4-e547-4bac-b3ef-7436bf60250a'
+import * as api from './api.js';
+
+await api.createUser();
 
 let todoList = document.getElementById('todo-list');
 let addBtn = document.getElementById('add-button');
-
-const getTasks = async () => {
-    const response = await fetch(`${URL}/${USER_ID}/tasks`, {
-        method: 'GET',
-    });
-
-    const data = await response.json();
-
-    for (let i = 0; i < data.tasks.length; i++) {
-        let todo = createTodoElement(data.tasks[i].name, data.tasks[i].id);
-        todoList.appendChild(todo);
-    }
-}
 
 const createTodoElement = (text, id) => {
     let todo = document.createElement('li');
@@ -38,29 +26,11 @@ const createTodoElement = (text, id) => {
     return todo;
 }
 
-const addTask = async () => {
-    let text = document.getElementById('new-todo-text').value;
-    const response = await fetch(`${URL}/${USER_ID}/tasks`, {
-        method: 'POST',
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-        body: JSON.stringify({ name: text }),
-    });
-
-    const data = await response.json();
-
-    let todo = createTodoElement(text, data.id);
-    todoList.appendChild(todo);
-}
-
-const removeTask = async (event) => {
-    let todo = event.target.parentElement;
-    todoList.removeChild(todo);
-
-    let taskId = todo.dataset.id;
-
-    fetch(`${URL}/${USER_ID}/tasks/${taskId}`, {
-        method: 'DELETE',
-        headers: { "Content-type": "application/json; charset=UTF-8" },
+const renderAllTasks = async () => {
+    const tasks = await api.getTasks();
+    tasks.array.forEach(task => {
+        let element = createTodoElement(task.name, task.id);
+        todoList.appendChild(element);
     });
 }
 
@@ -76,12 +46,22 @@ const saveEditedTask = async (event) => {
     let taskId = todo.parentElement.dataset.id;
     let text = todo.innerHTML;
 
-    const response = await fetch(`${URL}/${USER_ID}/tasks/${taskId}`, {
-        method: 'PUT',
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-        body: JSON.stringify({ name: text }),
-    });
+    api.updateTask(taskId, text);
 }
 
-document.getElementsByTagName('body')[0].addEventListener('load', getTasks());
-addBtn.addEventListener('click', addTask);
+const createTask = async () => {
+    let text = document.getElementById('new-todo-text').value;
+    await api.addTask(text);
+    renderAllTasks();
+}
+
+const removeTask = async (event) => {
+    let todo = event.target.parentElement;
+    todoList.removeChild(todo);
+
+    let taskId = todo.dataset.id;
+    api.removeTask(taskId);
+    renderAllTasks();
+}
+
+addBtn.addEventListener('click', createTask);
