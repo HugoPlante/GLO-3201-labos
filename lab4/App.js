@@ -3,50 +3,48 @@ import * as api from './api.js';
 await api.createUser();
 
 let todoList = document.getElementById('todo-list');
-let addBtn = document.getElementById('add-button');
 
-const createTodoElement = (text, id) => {
+const createTaskElement = (text, id) => {
     let todo = document.createElement('li');
     todo.className = 'todo-item';
 
     todo.dataset.id = id;
 
-    let todoText = document.createElement('p');
-    todoText.innerHTML = text;
+    let todoText = document.createElement('input');
+    todoText.value = text;
     todo.appendChild(todoText);
+
+    let saveBtn = document.createElement('button');
+    saveBtn.innerHTML = 'Save';
+    saveBtn.addEventListener('click', () => saveTask(event));
+    todo.appendChild(saveBtn);
 
     let removeBtn = document.createElement('button');
     removeBtn.innerHTML = '🗑️';
     removeBtn.addEventListener('click', () => removeTask(event));
     todo.appendChild(removeBtn);
 
-    todoText.addEventListener('click', (event) => editTask(event));
-    todoText.addEventListener('blur', (event) => saveEditedTask(event));
-
     return todo;
 }
 
 const renderAllTasks = async () => {
     const tasks = await api.getTasks();
-    tasks.array.forEach(task => {
-        let element = createTodoElement(task.name, task.id);
+    todoList.replaceChildren();
+    tasks.forEach(task => {
+        let element = createTaskElement(task.name, task.id);
         todoList.appendChild(element);
     });
 }
 
-const editTask = (event) => {
-    let todo = event.target;
-    todo.contentEditable = true;
-}
-
-const saveEditedTask = async (event) => {
-    let todo = event.target;
-    todo.contentEditable = false;
-
+const saveTask = async (event) => {
+    let todo = event.target.previousSibling;
+    console.log(todo)
     let taskId = todo.parentElement.dataset.id;
-    let text = todo.innerHTML;
-
-    api.updateTask(taskId, text);
+    let text = todo.value;
+    console.log('task id: ' + taskId);
+    console.log('text: ' + text);
+    await api.updateTask(taskId, text);
+    renderAllTasks();
 }
 
 const createTask = async () => {
@@ -60,8 +58,9 @@ const removeTask = async (event) => {
     todoList.removeChild(todo);
 
     let taskId = todo.dataset.id;
-    api.removeTask(taskId);
+    await api.removeTask(taskId);
     renderAllTasks();
 }
 
+let addBtn = document.getElementById('add-button');
 addBtn.addEventListener('click', createTask);

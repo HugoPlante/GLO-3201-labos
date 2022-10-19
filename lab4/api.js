@@ -18,12 +18,11 @@ export const getTasks = async () => {
         method: 'GET',
     });
 
+    if (response.status != 200) console.log('Error whule fetching tasks');
+
     const data = await response.json();
 
-    for (let i = 0; i < data.tasks.length; i++) {
-        let todo = createTodoElement(data.tasks[i].name, data.tasks[i].id);
-        todoList.appendChild(todo);
-    }
+    return data.tasks;
 }
 
 
@@ -35,17 +34,17 @@ export const addTask = async (text) => {
     });
 
     if (response.status != 200) console.log('Error while adding task');
-    // const data = await response.json();
-
 }
 
-export const removeTask = async (id) => {
+export const removeTask = async (taskId) => {
+    console.log('task id: ' + taskId);
+    console.log('user id: ' + USER_ID);
     const response = await fetch(`${URL}/${USER_ID}/tasks/${taskId}`, {
         method: 'DELETE',
         headers: { "Content-type": "application/json; charset=UTF-8" },
     });
 
-    if (response.status != 200) console.log('Error while removing task');
+    if (response.status != 204) console.log('Error while removing task');
 }
 
 export const updateTask = async (taskId, text) => {

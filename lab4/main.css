@@ -11,7 +11,7 @@ body {
 }
 
 #parent {
-  padding: 1rem
+  margin: 1rem;
 }
 
 #topbar {
@@ -20,21 +20,10 @@ body {
 }
 
 #todo-input {
-  
-}
-
-#todo-list {
   padding-bottom: 1rem;
 }
 
 .todo-item {
   padding-bottom: 1rem;
   display: flex;
-  justify-content: space-between;
-}
-
-#tips {
-  width: 30vw;
-  list-style: disc;
-  
 }
