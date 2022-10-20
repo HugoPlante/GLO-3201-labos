@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="reset.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//fonts.googleapis.com/css?family=Open+Sans"
+    />
+    <script type="module" src="App.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+
+  <body>
+    <div id="parent">
+      <div id="topbar">
+        <div id="todo-input">
+          <input
+            v-model="inputValue"
+            id="new-todo-text"
+            placeholder="Type new task..."
+          />
+          <button @click="createTask()" id="add-button">Add</button>
+        </div>
+      </div>
+      <ul v-for="task in tasks" :key="task.id" id="todo-list">
+        <li>
+          <input v-model="task.name" />
+          <button @click="updateTask(task)">Update</button>
+          <button @click="removeTask(task)">Delete</button>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

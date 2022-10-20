@@ -1,0 +1,29 @@
+:root {
+  --main-salmon: #e76f51;
+  --dark-blue: #023047;
+  --light-blue: #219ebc;
+}
+
+body {
+  background-color: #2b2d42;
+  font-family: "Open Sans";
+  color: white;
+}
+
+#parent {
+  margin: 1rem;
+}
+
+#topbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#todo-input {
+  padding-bottom: 1rem;
+}
+
+.todo-item {
+  padding-bottom: 1rem;
+  display: flex;
+}
