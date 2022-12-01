@@ -1,4 +1,4 @@
-const URL = 'https://glo3102lab4.herokuapp.com';
+const URL = 'http://localhost:8000';
 let USER_ID;
 
 export const createUser = async () => {
